@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+typedef vector<int > vi;
+int visited[1005];
+vi conn;
+vi adj[2005];
+int level[10005];
+bool bfs(int s)
+{
+    bool ck;
+    int col=1;
+    memset(visited,0,sizeof(visited));
+    queue<int>Q;
+    Q.push(s);
+    visited[s] =1;
+    while(!Q.empty())
+    {
+        int u = Q.front();
+        for(int i=0; i<adj[u].size(); i++){
+            if(visited[adj[u][i]]==0){
+                int v = adj[u][i];
+                if(visited[u]==1)
+                    visited[v]=2;
+                else
+                    visited[v]=1;
+                Q.push(v);
+            }
+            else
+                if(visited[adj[u][i]]==visited[u]){
+                    return false;
+                }
+        }
+        Q.pop();
+    }
+    return true;
+}
+int main()
+{
+//    freopen("int.txt","r",stdin);
+    int n,e,a,b;
+    while(scanf("%d",&n)==1&&n>0){
+        scanf("%d",&e);
+        for(int i=0;i<e;i++){
+            scanf("%d%d",&a,&b);
+            adj[a].push_back(b);
+            adj[b].push_back(a);
+        }
+//        cout<<1<<endl;
+       int c= bfs(0);
+        if(c) cout<<"BICOLORABLE."<<endl;
+        else cout<<"NOT BICOLORABLE."<<endl;
+        for(int i=0;i<205;i++)
+            adj[i].clear();
+    }
+    return 0;
+}
