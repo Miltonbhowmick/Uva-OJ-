@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    long long n,m,a;
+    while(scanf("%lld%lld",&n,&m)==2&&n>0){
+    vector<int > ar;
+        int cont=0;
+        for(int i=0;i<n;i++){
+            scanf("%lld",&a);
+            ar.insert(a);
+        }
+        for(int i=0;i<m;i++){
+            scanf("%lld",&a);
+            if(ar.find(a)!=ar.end())
+                cont++;
+        }
+        cout<<cont<<endl;
+    }
+    return 0;
+}
+
