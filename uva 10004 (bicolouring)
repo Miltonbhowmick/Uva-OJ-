@@ -37,7 +37,6 @@ bool bfs(int s)
 }
 int main()
 {
-//    freopen("int.txt","r",stdin);
     int n,e,a,b;
     while(scanf("%d",&n)==1&&n>0){
         scanf("%d",&e);
@@ -46,7 +45,6 @@ int main()
             adj[a].push_back(b);
             adj[b].push_back(a);
         }
-//        cout<<1<<endl;
        int c= bfs(0);
         if(c) cout<<"BICOLORABLE."<<endl;
         else cout<<"NOT BICOLORABLE."<<endl;
