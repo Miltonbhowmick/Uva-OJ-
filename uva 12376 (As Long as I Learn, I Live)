@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+typedef vector<int > vi;
+int cont,ans;
+bool vis[10005];
+int conn[10005];
+vi adj[10005];
+void dfs(int u)
+{
+    vis[u]=true;
+    bool ck;
+    ck=false;
+    int sz=adj[u].size(),mx=0,l,pass;
+    for(int i=0;i<sz;i++)
+        if(!vis[adj[u][i]]){
+           l=adj[u][i];
+            if(conn[l]>mx){
+                mx=conn[l];
+                ck=true;
+                pass=l;
+            }
+        }
+        if(ck){
+            cont+=mx;
+            ans=pass;
+            dfs(pass);
+        }
+        return ;
+}
+int main()
+{
+    int t,n,m,a,b;
+    cin>>t;
+    char ch;
+    for(int p=1;p<=t;p++){
+        memset(vis,false,sizeof(vis));
+        memset(conn,0,sizeof(conn));
+        cont=0;
+        ans=0;
+        cin>>n>>m;
+        for(int i=0;i<n;i++)
+            scanf("%d",&conn[i]);
+        for(int i=0;i<m;i++){
+            scanf("%d%d",&a,&b);
+            adj[a].push_back(b);
+        }
+        dfs(0);
+        cout<<"Case "<<p<<": "<<cont<<" "<<ans<<endl;
+        for(int i=0;i<n;i++)
+            adj[i].clear();
+    }
+    return 0;
+}
