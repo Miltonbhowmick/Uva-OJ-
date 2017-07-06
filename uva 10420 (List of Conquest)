@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    map<string , int > mp;
+    map<string , int > ::iterator it;
+    string s,r;
+    int t;
+    scanf("%d",&t);
+    getchar();
+    while(t--){
+        cin>>s;
+        getline(cin,r);
+        mp[s]++;
+    }
+    for(it=mp.begin();it!=mp.end();it++)
+        cout<<it->first<<" "<<it->second<<endl;
+
+    return 0;
+}
