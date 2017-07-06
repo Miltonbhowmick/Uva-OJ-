@@ -1,0 +1,42 @@
+#include<iostream>
+#include<set>
+#include<cstdio>
+#include<ctype.h>
+#include<sstream>
+
+using namespace std;
+
+int main()
+{
+    string s,r,t;
+    stringstream ss;
+    set<string > words;
+    set<string > ::iterator it;
+    r="";
+    while(getline(cin,s)){
+        int ln=s.length();
+        if(s[ln-1]=='-')
+            s.erase(ln-1,1);
+        else
+            s+=" ";
+        r+=s;
+    }
+    int ln=r.length(),j=0;
+    for(int i=0;i<ln;i++){
+        if(!isalpha(r[i])&&r[i]!='-'){
+            r.erase(i,1);
+            r.insert(i," ");
+        }
+        else if(isalpha(r[i]))
+         if(r[i]>='A'&&r[i]<='Z'){
+                r[i]+=32;
+        }
+    }
+    ss<<r;
+    while(ss>>t)
+        words.insert(t);
+    for(it=words.begin();it!=words.end();it++)
+        cout<<*it<<endl;
+
+    return 0;
+}
