@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    freopen("int.txt","r",stdin);
+    map< int , int> cont;
+    char grid[105*105],position;
+    string s,mv="NLSO";
+    int n,m,p,po;
+    while(scanf("%d%d%d",&n,&m,&p)==3&&n>0){
+        for(int i=1;i<=n*m;i++){
+            cin>>grid[i];
+            char ck=grid[i];
+            if(ck=='N'||ck=='S'||ck=='O'||ck=='L'){
+               position=ck;
+                po=i;
+            }
+        }
+        int c=po;
+        grid[po]='.';
+        cin>>s;
+        int ln=s.length();
+        for(int i=0;i<ln;i++){
+            if(s[i]=='F'){
+                c=po;
+                if(position=='N')po-=m;
+                else if(position=='S') po+=m;
+                else if(position=='L'){po++; if((po%m)==1) po--;}
+                else if(position=='O'){po--; if(!(po%m)) po++;}
+
+                if(po<=0||po>n*m||grid[po]=='#') po=c;
+                if(grid[po]=='*'){
+                    cont[po]=1;
+                    grid[po]='.';
+                }
+            }
+            else if(s[i]=='D'){
+                if(position=='N') position=mv[1];
+                else if(position=='S') position=mv[3];
+                else if(position=='L')position=mv[2];
+                else if(position=='O') position=mv[0];
+            }
+            else if(s[i]=='E'){
+//                cout<<position<<"-";
+                if(position=='N') position=mv[3];
+                else if(position=='S') position=mv[1];
+                else if(position=='L')position=mv[0];
+                else if(position=='O') position=mv[2];
+//                cout<<"C  "<<position<<endl;
+            }
+        }
+        cout<<cont.size()<<endl;
+        cont.clear();
+    }
+
+    return 0;
+}
