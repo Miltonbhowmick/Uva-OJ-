@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+class DisjointSet{
+public:
+    map<char ,char >parent;
+    void make(char ch);
+    void unionNode(char u,char v);
+    char findRep(char ch);
+};
+void DisjointSet::make(char ch){
+    parent[ch]=ch;
+}
+char DisjointSet::findRep(char ch){
+    if(parent[ch]==ch)
+        return ch;
+    else {
+        parent[ch]=findRep(parent[ch]);
+        return parent[ch];
+    }
+}
+void DisjointSet::unionNode(char u,char v){
+    char a=findRep(u);
+    char b=findRep(v);
+    if(a!=b)
+        parent[a]=b;
+}
+int main()
+{
+    DisjointSet ob;
+    string s;
+    char c;
+    int t,ck[150],nod[150];
+    scanf("%d",&t);
+    getchar();
+    for(int i=0;i<t;i++){
+        set<char > re;
+        int cont=0;
+        memset(ck,0,sizeof(ck));
+        cin>>c;
+        getchar();
+       for(int i='A';i<=c;i++)
+            ob.make(i);
+        while(getline(cin,s)&&s!=""){
+            ob.unionNode(s[0],s[1]);
+        }
+        for(int i='A';i<=c;i++)
+           re.insert(ob.findRep(i));
+
+        cout<<re.size()<<endl;
+        if((i+1)!=t)
+            cout<<endl;
+        ob.parent.clear();
+        }
+
+    return 0;
+}
