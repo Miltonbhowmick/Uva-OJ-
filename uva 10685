@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+map<string ,string >parent;
+void make(string ch){
+    parent[ch]=ch;
+}
+string findRep(string ch){
+    if(parent[ch]==ch)
+        return ch;
+    else{
+        parent[ch]=findRep(parent[ch]);
+        return parent[ch];
+    }
+}
+
+void unionNode(string u,string v){
+    string a=findRep(u);
+    string b=findRep(v);
+    if(a!=b)
+        parent[a]=b;
+}
+
+int main()
+{
+    string s[5005],p,q;
+    int c,r;
+    while(scanf("%d%d",&c,&r)==2&&c>0){
+        map<string ,int > mp;
+        getchar();
+        for(int i=0;i<c;i++){
+            cin>>s[i];
+            make(s[i]);
+        }
+        for(int i=0;i<r;i++){
+            cin>>p>>q;
+            unionNode(p,q);
+        }
+        string ans,ck;
+        int mx=0;
+        for(int i=0;i<c;i++){
+            ck=findRep(s[i]);
+            mp[ck]++;
+            mx=max(mp[ck],mx);
+         }
+        cout<<mx<<endl;
+        parent.clear();
+    }
+    return 0;
+}
