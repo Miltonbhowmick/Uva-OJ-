@@ -1,0 +1,33 @@
+#include<iostream>
+#include<cstdio>
+#include<vector>
+
+using namespace std;
+
+#define MAX 20000000
+vector<long long >isPrime(MAX,true);
+vector<pair<long long ,long long > >prime;
+
+void seive(){
+    long long i,j,ck=2;
+    isPrime[0]=isPrime[1]=0;
+    for(i=2;i<MAX;i++)
+        if(isPrime[i]){
+            if((i-ck)==2){
+                prime.push_back(make_pair(ck,i));
+            }
+            ck=i;
+            for(j=i*i;j<MAX;j+=i)
+                isPrime[j]=0;
+        }
+}
+int main()
+{
+    seive();
+    int n;
+    while(scanf("%d",&n)!=EOF){
+        printf("(%lld, %lld)\n",prime[n-1].first,prime[n-1].second);
+    }
+    return 0;
+}
+        
