@@ -1,0 +1,80 @@
+#include<iostream>
+#include<cstdio>
+
+using namespace std;
+
+int main()
+{
+    int r,c,n,m,colAns,rowAns,t;
+    scanf("%d",&t);
+    getchar();
+    for(int w=0;w<t;w++){
+        char grid[3605],input;
+        scanf("%c",&input);
+        scanf("%d%d",&r,&c);
+        int p=r*c,position;
+        getchar();
+        for(int j=1;j<=p;){
+            scanf("%c",&input);
+            if(input=='\n') continue;
+            else grid[j++]=input;
+        }
+        scanf("%d%d",&n,&m);
+        position=(c*(n-1))+m;
+        getchar();
+        char check='N',ch;
+        while(scanf("%c",&ch)&&ch!='Q'){
+            if(ch=='\n'||ch==' ') continue;
+            else if(ch=='R'){
+                if(check=='N') check='E';
+                else if(check=='E') check='S';
+                else if(check=='S') check='W';
+                else if(check=='W') check='N';
+            }
+            else if(ch=='L'){
+                if(check=='N') check='W';
+                else if(check=='W') check='S';
+                else if(check=='S') check='E';
+                else if(check=='E') check='N';
+            }
+            else if(ch=='F'){
+                if(check=='N'){
+                    if((position-c)>0){
+                        position-=c;
+                            if(grid[position]=='*')
+                                position+=c;
+                    }
+                }
+                else if(check=='E'){
+                    if(((position+1)%c)!=1){
+                        position++;
+                            if(grid[position]=='*')
+                                position--;
+                    }
+                }
+                else if(check=='W'){
+                    if(((position-1)%c)!=0){
+                        position--;
+                            if(grid[position]=='*')
+                                position++;
+                    }
+                }
+                else {
+                    if((position+c)<=p){
+                        position+=c;
+                            if(grid[position]=='*')
+                                position-=c;
+                    }
+                }
+            }
+        }
+        if(position%c)
+            rowAns=(position/c)+1,colAns=position%c;
+        else
+            rowAns=position/c,colAns=c;
+        cout<<rowAns<<" "<<colAns<<" "<<check<<endl;
+        if((w+1)!=t)
+            cout<<endl;
+    }
+    return 0;
+}
