@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector<int>adj[50005];
+bool vis[50005];
+
+bool cmp(const pair<char ,int > &a,const pair<char ,int > &b){
+    if(a.second!=b.second)
+        return a.second>b.second;
+    else
+        return a.first<b.first;
+}
+void dfs(int u){
+    vis[u]=true;
+    int sz=adj[u].size();
+    for(int i=0;i<sz;i++){
+        int v=adj[u][i];
+        if(!vis[v])
+            dfs(v);
+    }
+    return ;
+}
+int main()
+{
+//    freopen("int.txt","r",stdin);
+    char grid[50005];
+    int t,cont,n,m;
+    scanf("%d",&t);
+    for(int i=1;i<=t;i++){
+        memset(vis,false,sizeof(vis));
+        cont=0;
+        scanf("%d%d",&n,&m);
+        for(int j=1;j<=n*m;j++){
+            cin>>grid[j];
+        }
+        for(int j=1;j<=n*m;j++){
+            if((j-m)>0&&grid[j-m]==grid[j])
+                adj[j].push_back(j-m);
+            if((j+m)<=n*m&&grid[j+m]==grid[j])
+                adj[j].push_back(j+m);
+            if(((j-1)%m)!=0&&grid[j-1]==grid[j])
+                adj[j].push_back(j-1);
+            if(((j+1)%m)!=1&&grid[j+1]==grid[j])
+                adj[j].push_back(j+1);
+        }
+        map<char ,int > ans ;
+        for(int j=1;j<=n*m;j++){
+            if(vis[j]==false){
+                ans[grid[j]]++;
+                dfs(j);
+            }
+            adj[j].clear();
+        }
+        printf("World #%d\n",i);
+        vector<pair< char ,int > > finl(ans.begin(),ans.end());
+        vector<pair< char ,int > > ::iterator it;
+        sort(finl.begin(),finl.end(),cmp);
+        for(it=finl.begin();it!=finl.end();it++){
+            cout<<it->first<<": "<<it->second<<endl;
+        }
+    }
+    return 0;
+}
