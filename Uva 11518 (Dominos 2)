@@ -1,0 +1,43 @@
+#include<iostream>
+#include<cstdio>
+#include<string>
+#include<vector>
+using namespace std;
+vector<int >adj[10005];
+bool vis[10005];
+int cnt;  /// number of fallen Domino is stored here!
+void dfs(int u){
+    cnt++;
+    cout<<u<<" ";
+    vis[u]=true;
+    int sz=adj[u].size();
+    for(int i=0;i<sz;i++){
+        int v=adj[u][i];
+        if(!vis[v]) dfs(v);
+    }
+    return ;
+}
+int main()
+{
+//    freopen("int.txt","r",stdin);
+    int test,m,n,l,x,y,z;
+    cin>>test;
+    while(test--){
+        cin>>n>>m>>l;
+        for(int i=1;i<=n;i++) vis[i]=false;
+        while(m--){
+            scanf("%d%d",&x,&y);
+            adj[x].push_back(y);
+        }
+        cnt=0;
+        while(l--){
+            int z;
+            scanf("%d",&z);
+            if(!vis[z]) dfs(z);
+        }
+        for(int i=1;i<=n;i++)
+            adj[i].clear(),vis[i]=false;
+        cout<<cnt<<endl;
+    }
+    return 0;
+}
