@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    string s;
+    int t;
+    cin>>t;
+    while(t--){
+        cin>>s;
+        int ln = s.length(),i,ck=0;
+        for(i=1;i<=ln;i++){
+            string sck="",ans="";
+            if(!(ln%i)){
+                for(int j=0;j<i;j++)
+                    sck+=s[j];
+            for(int j=0;j<ln/i;j++)
+                ans+=sck;
+            if(ans==s){ck=1; break;}
+            }
+        }
+        if(ck) printf("%d\n",i);
+        else printf("%d\n",ln);
+
+        if(t) printf("\n");
+    }
+    return 0;
+}
