@@ -1,0 +1,40 @@
+/// Complexity O(n)
+#include<bits/stdc++.h>
+using namespace std;
+
+/// Failure Table
+int kmpProcess(string s,int lps[],int ln){
+    int j=0;
+    lps[j]=0;
+    for(int i=1;i<ln;){
+        if(s[i]==s[j]){
+            lps[i]=j+1;
+            j++,i++;
+        }
+        else{
+            if(j>0) j=lps[j-1];
+            else{
+                lps[i]=0;
+                i++;
+            }
+        }
+    }
+    return j;
+}
+int main()
+{
+    int test;
+    string s;
+    cin>>test;
+    while(test--){
+    int lps[1005];
+    cin>>s;
+    int ln = s.length();
+    int pos = kmpProcess(s,lps,ln);
+
+    if(ln%(ln-pos)) cout<<ln<<endl;
+    else cout<<ln-pos<<endl;
+    if(test) cout<<endl;
+}
+    return 0;
+}
