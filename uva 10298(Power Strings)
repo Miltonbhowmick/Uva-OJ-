@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int lps[1000005];
+int kmpProcess(string s,int ln ){
+    int j=0;
+    lps[j]=0;
+    for(int i=1;i<ln;){
+        if(s[i]==s[j]){
+            lps[i]=j+1;
+            j++,i++;
+        }
+        else{
+            if(j>0) j=lps[j-1];
+            else lps[i]=0,i++;
+        }
+    }
+    return j;
+}
+int main()
+{
+    string s;
+    while(cin>>s&&s!="."){
+        int ln = s.length();
+        int pos = kmpProcess(s,ln);
+        int d=ln-pos;
+        if(ln%(ln-pos)) cout<<1<<endl;
+        else cout<<ln/d<<endl;
+    }
+    return 0;
+}
